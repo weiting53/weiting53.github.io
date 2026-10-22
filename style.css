@@ -124,8 +124,8 @@ hr { border: 0; border-top: 2px solid var(--ink); margin: 0 0 18px; max-width: 5
 .fish.left svg { animation-name: bob-flip; }
 @keyframes swim { from { transform: translateX(-60px); } to { transform: translateX(calc(100vw + 60px)); } }
 @keyframes swim-left { from { transform: translateX(calc(100vw + 60px)); } to { transform: translateX(-60px); } }
-@keyframes bob { 50% { transform: translateY(3px); } }
-@keyframes bob-flip { from, to { transform: scaleX(-1); } 50% { transform: scaleX(-1) translateY(3px); } }
+@keyframes bob { 50% { transform: translateY(2px); } }
+@keyframes bob-flip { from, to { transform: scaleX(-1); } 50% { transform: scaleX(-1) translateY(2px); } }
 
 /* sections */
 main { max-width: 1040px; margin: 0 auto; padding: 0 16px; }

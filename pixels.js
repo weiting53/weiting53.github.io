@@ -121,13 +121,15 @@ const SPRITES = {
     "................",
     "................",
   ],
-  // F = body, f = fin/tail, e = eye; recoloured per fish
+  // F = body, f = fins/tail, h = belly highlight, w/k = eye; recoloured per fish
   fish: [
-    "f...FFF.",
-    "ff.FFFFFF",
-    "fFFFFFFeF",
-    "ff.FFFFFF",
-    "f...FFF.",
+    "......ff....",
+    "f...FFFFFF..",
+    "ff.FFFFFFwkF",
+    "fffFFFFFFFFF",
+    "ff.FhhhhhFF.",
+    "f...FFFFF...",
+    "......f.....",
   ],
   tea: [
     "........kk......",
@@ -283,12 +285,12 @@ function drawScene(svg) {
 
 // Little pixel fish swimming behind the Projects section, a nod to the fishing cat
 const FISH_COLORS = [
-  ["#e8665a", "#b94a40"], // coral
-  ["#eaa75e", "#c07f3a"], // orange
-  ["#f2c66d", "#c99a3e"], // yellow
-  ["#6fa3b8", "#46788c"], // blue
-  ["#f3b6a8", "#d4847a"], // pink
-  ["#7aa892", "#4f7d6b"], // green
+  ["#e8665a", "#b94a40", "#f4a399"], // coral
+  ["#eaa75e", "#c07f3a", "#f6d3a5"], // orange
+  ["#f2c66d", "#c99a3e", "#fae6b4"], // yellow
+  ["#6fa3b8", "#46788c", "#b5d5e2"], // blue
+  ["#f3b6a8", "#d4847a", "#fbe0d8"], // pink
+  ["#7aa892", "#4f7d6b", "#bcd9ca"], // green
 ];
 
 function drawFishSchool(home) {
@@ -297,21 +299,21 @@ function drawFishSchool(home) {
   school.setAttribute("aria-hidden", "true");
   const n = window.innerWidth < 700 ? 8 : 18;
   for (let i = 0; i < n; i++) {
-    const [body, fin] = FISH_COLORS[i % FISH_COLORS.length];
+    const [body, fin, belly] = FISH_COLORS[i % FISH_COLORS.length];
     const lane = document.createElement("div");
     lane.className = "fish" + (i % 2 ? " left" : "");
     lane.style.top = `${8 + ((i * 37) % 86)}%`;
     lane.style.animationDuration = `${38 + ((i * 13) % 34)}s`;
     lane.style.animationDelay = `${-((i * 17) % 60)}s`;
     const svg = document.createElementNS(SVGNS, "svg");
-    svg.setAttribute("viewBox", "0 0 9 5");
+    svg.setAttribute("viewBox", "0 0 12 7");
     svg.classList.add("px");
-    const s = i % 3 === 0 ? 7 : 5;
-    svg.style.width = `${9 * s}px`;
-    svg.style.height = `${5 * s}px`;
+    const s = i % 3 === 0 ? 3 : 2;
+    svg.style.width = `${12 * s}px`;
+    svg.style.height = `${7 * s}px`;
     svg.style.animationDelay = `${-(i % 5) * 0.4}s`;
     SPRITES.fish.forEach((row, y) => [...row].forEach((ch, x) => {
-      const fill = { F: body, f: fin, e: PALETTE.k }[ch];
+      const fill = { F: body, f: fin, h: belly, w: PALETTE.w, k: PALETTE.k }[ch];
       if (fill) rect(svg, x, y, 1, 1, fill);
     }));
     lane.appendChild(svg);
