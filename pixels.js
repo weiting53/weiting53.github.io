@@ -295,7 +295,7 @@ function drawFishSchool(home) {
   const school = document.createElement("div");
   school.className = "fish-school";
   school.setAttribute("aria-hidden", "true");
-  const n = window.innerWidth < 700 ? 6 : 14;
+  const n = window.innerWidth < 700 ? 8 : 18;
   for (let i = 0; i < n; i++) {
     const [body, fin] = FISH_COLORS[i % FISH_COLORS.length];
     const lane = document.createElement("div");
@@ -306,7 +306,7 @@ function drawFishSchool(home) {
     const svg = document.createElementNS(SVGNS, "svg");
     svg.setAttribute("viewBox", "0 0 9 5");
     svg.classList.add("px");
-    const s = i % 3 === 0 ? 6 : 4;
+    const s = i % 3 === 0 ? 7 : 5;
     svg.style.width = `${9 * s}px`;
     svg.style.height = `${5 * s}px`;
     svg.style.animationDelay = `${-(i % 5) * 0.4}s`;

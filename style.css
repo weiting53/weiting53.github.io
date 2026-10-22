@@ -117,7 +117,7 @@ hr { border: 0; border-top: 2px solid var(--ink); margin: 0 0 18px; max-width: 5
 #projects { position: relative; }
 #projects > :not(.fish-school) { position: relative; z-index: 1; }
 .fish-school { position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; overflow: hidden; pointer-events: none; }
-.fish { position: absolute; left: 0; opacity: .75; animation: swim linear infinite; }
+.fish { position: absolute; left: 0; opacity: .9; animation: swim linear infinite; }
 .fish.left { animation-name: swim-left; }
 .fish.left svg { transform: scaleX(-1); }
 .fish svg { display: block; animation: bob 1.6s steps(2) infinite; }
