@@ -172,15 +172,37 @@ function group(parent, cls) {
 let seed = 7;
 const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
 
-// Rasterize a union of circles into a pixel cloud, shaded on the bottom edge
-function cloud(parent, cx, cy, circles) {
-  const inside = (x, y) => circles.some(([dx, dy, r]) => (x - dx) ** 2 + (y - dy) ** 2 <= r * r);
-  for (let y = -16; y <= 6; y++) {
-    for (let x = -30; x <= 30; x++) {
-      if (!inside(x, y)) continue;
-      rect(parent, cx + x, cy + y, 1, 1, inside(x, y + 1) ? PALETTE.w : PALETTE.c);
+// Rasterize a union of circles into a flat-bottomed pixel cloud, shaded on the bottom edge
+function cloud(parent, cx, cy, circles, s = 1) {
+  const cs = circles.map(([dx, dy, r]) => [dx * s, dy * s, r * s]);
+  const base = Math.round(3 * s);
+  const inside = (x, y) => y <= base && cs.some(([dx, dy, r]) => (x - dx) ** 2 + (y - dy) ** 2 <= r * r);
+  const reach = Math.ceil(Math.max(...cs.map(([dx, dy, r]) => Math.max(Math.abs(dx), Math.abs(dy)) + r)));
+  // Merge horizontal runs of the same colour into one rect to keep the DOM small
+  for (let y = -reach; y <= base; y++) {
+    let runStart = null, runColor = null;
+    for (let x = -reach; x <= reach + 1; x++) {
+      const color = x <= reach && inside(x, y) ? (inside(x, y + 1) ? PALETTE.w : PALETTE.c) : null;
+      if (color === runColor) continue;
+      if (runColor) rect(parent, cx + runStart, cy + y, x - runStart, 1, runColor);
+      runStart = x;
+      runColor = color;
     }
   }
+}
+
+// A cloud layer is drawn twice, one scene-width apart, and slides left by
+// exactly that width, so the loop is seamless.
+function cloudLayer(svg, W, cls, { spacing, scale, y, jitter }) {
+  const layer = group(svg, `cloud-layer ${cls}`);
+  layer.style.setProperty("--w", `${W}px`);
+  const n = Math.max(1, Math.round(W / spacing));
+  const spots = Array.from({ length: n }, (_, i) => [
+    Math.round((i + 0.3 + rand() * 0.4) * W / n),
+    y + Math.round((rand() - 0.5) * jitter),
+    CLOUD_SHAPES[i % CLOUD_SHAPES.length],
+  ]);
+  [0, W].forEach((off) => spots.forEach(([x, cy, shape]) => cloud(layer, x + off, cy, shape, scale)));
 }
 
 const CLOUD_SHAPES = [
@@ -200,10 +222,8 @@ function drawScene(svg) {
   seed = 7;
   const mid = Math.round(W / 2);
 
-  const clouds = group(svg, "clouds");
-  for (let x = mid - 108 * Math.ceil(mid / 108), i = 0; x < W + 30; x += 108, i++) {
-    cloud(clouds, x, 44 + (i % 3) * 3, CLOUD_SHAPES[((i % 3) + 3) % 3]);
-  }
+  cloudLayer(svg, W, "back", { spacing: 90, scale: 1, y: 30, jitter: 10 });
+  cloudLayer(svg, W, "front", { spacing: 150, scale: 1.7, y: 46, jitter: 8 });
 
   const land = group(svg);
   // water

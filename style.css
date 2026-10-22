@@ -106,9 +106,11 @@ hr { border: 0; border-top: 2px solid var(--ink); margin: 0 0 18px; max-width: 5
 .corner { position: absolute; right: 10px; bottom: 10px; width: 16px; height: 16px; border-right: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
 
 .scene { display: block; width: calc(100% + 32px); margin: -28px -16px 0; height: 300px; position: relative; z-index: 1; }
-.clouds { animation: drift 60s linear infinite alternate; }
+.cloud-layer { animation: drift linear infinite; }
+.cloud-layer.back { opacity: .75; animation-duration: 240s; }
+.cloud-layer.front { animation-duration: 120s; }
 .ripples { animation: shimmer 3.2s steps(2) infinite; }
-@keyframes drift { to { transform: translateX(14px); } }
+@keyframes drift { to { transform: translateX(calc(-1 * var(--w))); } }
 @keyframes shimmer { 50% { transform: translateX(2px); } }
 
 /* sections */
@@ -204,7 +206,7 @@ footer { max-width: 1040px; margin: 0 auto; padding: 56px 16px 40px; font-size: 
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .clouds, .ripples { animation: none; }
+  .cloud-layer, .ripples { animation: none; }
   .btn, .icon { transition: none; }
   html { scroll-behavior: auto; }
 }
