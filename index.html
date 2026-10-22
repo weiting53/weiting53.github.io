@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wei Ting Huang</title>
+  <meta name="description" content="Wei Ting Huang — HCI researcher and builder at National Taiwan University. Digital health, behavior change, XR and AI-driven interactive systems.">
+  <meta name="color-scheme" content="light">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="#"><svg class="px" data-sprite="tree" viewBox="0 0 11 16" aria-hidden="true"></svg>Wei Ting</a>
+    <nav>
+      <a href="#projects">Projects</a>
+      <a href="#background">Background</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="sky">
+    <div class="hero-card">
+      <p class="ref">REF: WTH-2026</p>
+      <div class="hero-main">
+        <div>
+          <h1>WEI TING<br>HUANG</h1>
+          <hr>
+          <p class="subtitle">HCI researcher &amp; builder — interactive systems for everyday well-being</p>
+          <div class="btns">
+            <a class="btn primary" href="#projects">See projects →</a>
+            <a class="btn" href="https://github.com/weiting53">GitHub</a>
+            <a class="btn" href="https://www.linkedin.com/in/weiting53/">LinkedIn</a>
+            <a class="btn" href="mailto:jinjin920503@gmail.com">Email</a>
+          </div>
+        </div>
+        <div class="hero-side">
+          <svg class="barcode" id="barcode" viewBox="0 0 160 40" preserveAspectRatio="none" aria-hidden="true"></svg>
+          <div class="spec">
+            <p class="spec-k">CURRENTLY</p>
+            <p class="spec-v">M.S. Computer Science<br>National Taiwan University</p>
+          </div>
+          <div class="spec">
+            <p class="spec-k">FOCUS</p>
+            <p class="spec-v">HCI · Digital health · XR · Applied AI</p>
+          </div>
+        </div>
+      </div>
+      <span class="corner" aria-hidden="true"></span>
+    </div>
+    <svg id="scene" class="scene" viewBox="0 0 320 90" preserveAspectRatio="xMidYMax slice" aria-hidden="true"></svg>
+  </section>
+
+  <main>
+    <section id="projects">
+      <div class="section-head">
+        <p class="ref">INDEX / 01</p>
+        <h2>Projects</h2>
+        <p class="note">Most of what I do is one project at a time — from idea to working system to people using it.</p>
+      </div>
+
+      <div class="grid">
+        <article class="card wide">
+          <div class="card-id"><span>PRJ-01</span><span>2025 – NOW</span></div>
+          <div class="preview">
+            <svg class="px icon" data-sprite="phone" viewBox="0 0 16 16"></svg>
+            <span class="label">WINDING DOWN</span>
+          </div>
+          <div class="strip"><span>ROLE</span><span>MASTER'S THESIS · SOLE DEVELOPER</span></div>
+          <div class="body">
+            <p>Bedtime scrolling is hard to stop with hard blocks and reminders. Winding Down makes the phone <em>gradually</em> less stimulating as bedtime approaches. I built the whole Android system — screen overlays plus on-device network traffic shaping through <code>VpnService</code> — and ran a multi-week field deployment with real users.</p>
+            <ul class="tags"><li>Android</li><li>Kotlin</li><li>VpnService</li><li>Field study</li><li>Behavior change</li></ul>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-id"><span>PRJ-02</span><span>2025</span></div>
+          <div class="preview">
+            <svg class="px icon" data-sprite="vr" viewBox="0 0 16 16"></svg>
+            <span class="label">HUEMATES</span>
+          </div>
+          <div class="strip"><span>ROLE</span><span>DEVELOPER · TEAM OF 5</span></div>
+          <div class="body">
+            <p>Cooperative mixed-reality game about color spirits, made with NTUST MR Storytelling. I built two-player real-time sync with Unity Netcode and the spirits' movement and interaction logic.</p>
+            <ul class="tags"><li>Unity</li><li>C#</li><li>Meta Quest</li><li>Netcode</li></ul>
+            <p class="links"><a href="https://youtu.be/T2s1jHeiLac">▶ Demo video</a><a href="https://github.com/weiting53/huemates-vr-game">Code ↗</a></p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-id"><span>PRJ-03</span><span>2025</span></div>
+          <div class="preview">
+            <svg class="px icon" data-sprite="chat" viewBox="0 0 16 16"></svg>
+            <span class="label">VIRTUAL BOYFRIEND LLM</span>
+          </div>
+          <div class="strip"><span>ROLE</span><span>INDEPENDENT</span></div>
+          <div class="body">
+            <p>A virtual-boyfriend chat model: fine-tuned Qwen2.5-7B with QLoRA on ~1,300 Traditional Chinese dialogues drawn from novel characters, for warm, emotionally expressive replies. Released with GGUF quantization to run on an 8 GB consumer GPU.</p>
+            <ul class="tags"><li>Qwen2.5</li><li>Unsloth</li><li>TRL</li><li>QLoRA</li><li>GGUF</li></ul>
+            <p class="links"><a href="https://huggingface.co/wei535353/virtual-boyfriend-chinese-v2">Model on Hugging Face ↗</a></p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-id"><span>PRJ-04</span><span>2024 – 2025</span></div>
+          <div class="preview">
+            <svg class="px icon" data-sprite="cat" viewBox="0 0 16 16"></svg>
+            <span class="label">福氣貓 LUCKY CAT</span>
+          </div>
+          <div class="strip"><span>ROLE</span><span>TEAM LEAD · SYSTEM DEVELOPER</span></div>
+          <div class="body">
+            <p>AIoT robotic cat for older adults living alone. Voice and vision detect falls and missed medication, and alert family through a LINE Bot. Inference runs on a Jetson Nano so camera data stays at home. Funded NT$60,000 by the NCKU Dream Project.</p>
+            <ul class="tags"><li>Jetson Nano</li><li>Computer vision</li><li>Speech</li><li>LINE Bot</li></ul>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-id"><span>PRJ-05</span><span>2024</span></div>
+          <div class="preview">
+            <svg class="px icon" data-sprite="tea" viewBox="0 0 16 16"></svg>
+            <span class="label">BUBBLE TEA EMPIRE</span>
+          </div>
+          <div class="strip"><span>ROLE</span><span>INDEPENDENT · DESIGN &amp; CODE</span></div>
+          <div class="body">
+            <p>Narrative game that teaches entrepreneurship by running a bubble-tea shop. Launched on the DOKIFIC platform and played by 2,000+ players.</p>
+            <ul class="tags"><li>JavaScript</li><li>Game design</li><li>AI-generated art</li></ul>
+            <p class="links"><a href="https://weiting53.github.io/My-Bubble-tea-Empire/startup_cl.html">▶ Play</a><a href="https://github.com/weiting53/My-Bubble-tea-Empire">Design notes ↗</a></p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="background">
+      <div class="section-head">
+        <p class="ref">INDEX / 02</p>
+        <h2>Background</h2>
+      </div>
+      <div class="two">
+        <div class="card plain">
+          <div class="card-id"><span>EDUCATION</span><span></span></div>
+          <dl class="timeline">
+            <dt>2025 – 2027 (expected)</dt>
+            <dd><strong>National Taiwan University</strong><br>M.S. in Computer Science — HCI</dd>
+            <dt>2021 – 2025</dt>
+            <dd><strong>National Cheng Kung University</strong><br>B.S., Interdisciplinary Program — Industrial Information Management</dd>
+          </dl>
+        </div>
+        <div class="card plain">
+          <div class="card-id"><span>TOOLKIT</span><span></span></div>
+          <ul class="tags big">
+            <li>Python</li><li>Kotlin / Android</li><li>JavaScript</li><li>C++</li>
+            <li>PyTorch</li><li>LoRA / QLoRA</li><li>Unity</li><li>Meta Quest</li>
+            <li>Jetson Nano</li><li>Field studies</li><li>Prototyping</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact card">
+        <div class="card-id"><span>CONTACT</span><span>OPEN</span></div>
+        <div class="body">
+          <p class="big">Open to research collaborations and solutions-engineering internships.</p>
+          <div class="btns">
+            <a class="btn primary" href="mailto:jinjin920503@gmail.com">jinjin920503@gmail.com</a>
+            <a class="btn" href="https://github.com/weiting53">github.com/weiting53</a>
+            <a class="btn" href="https://www.linkedin.com/in/weiting53/">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2026 Wei Ting Huang · pixels drawn in code</footer>
+
+  <script src="pixels.js"></script>
+</body>
+</html>
