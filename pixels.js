@@ -121,6 +121,14 @@ const SPRITES = {
     "................",
     "................",
   ],
+  // F = body, f = fin/tail, e = eye; recoloured per fish
+  fish: [
+    "f...FFF.",
+    "ff.FFFFFF",
+    "fFFFFFFeF",
+    "ff.FFFFFF",
+    "f...FFF.",
+  ],
   tea: [
     "........kk......",
     ".......kk.......",
@@ -273,6 +281,45 @@ function drawScene(svg) {
   rect(land, d + 119, GROUND - 3, 3, 1, PALETTE.k);
 }
 
+// Little pixel fish swimming behind the page, a nod to the fishing cat
+const FISH_COLORS = [
+  ["#e8665a", "#b94a40"], // coral
+  ["#eaa75e", "#c07f3a"], // orange
+  ["#f2c66d", "#c99a3e"], // yellow
+  ["#6fa3b8", "#46788c"], // blue
+  ["#f3b6a8", "#d4847a"], // pink
+  ["#7aa892", "#4f7d6b"], // green
+];
+
+function drawFishSchool() {
+  const school = document.createElement("div");
+  school.className = "fish-school";
+  school.setAttribute("aria-hidden", "true");
+  const n = window.innerWidth < 700 ? 6 : 14;
+  for (let i = 0; i < n; i++) {
+    const [body, fin] = FISH_COLORS[i % FISH_COLORS.length];
+    const lane = document.createElement("div");
+    lane.className = "fish" + (i % 2 ? " left" : "");
+    lane.style.top = `${8 + ((i * 37) % 86)}%`;
+    lane.style.animationDuration = `${38 + ((i * 13) % 34)}s`;
+    lane.style.animationDelay = `${-((i * 17) % 60)}s`;
+    const svg = document.createElementNS(SVGNS, "svg");
+    svg.setAttribute("viewBox", "0 0 9 5");
+    svg.classList.add("px");
+    const s = i % 3 === 0 ? 6 : 4;
+    svg.style.width = `${9 * s}px`;
+    svg.style.height = `${5 * s}px`;
+    svg.style.animationDelay = `${-(i % 5) * 0.4}s`;
+    SPRITES.fish.forEach((row, y) => [...row].forEach((ch, x) => {
+      const fill = { F: body, f: fin, e: PALETTE.k }[ch];
+      if (fill) rect(svg, x, y, 1, 1, fill);
+    }));
+    lane.appendChild(svg);
+    school.appendChild(lane);
+  }
+  document.body.prepend(school);
+}
+
 // Deterministic barcode from the name
 function drawBarcode(svg, text) {
   let x = 0, i = 0;
@@ -299,5 +346,6 @@ if (scene) {
     timer = setTimeout(() => drawScene(scene), 150);
   });
 }
+drawFishSchool();
 const barcode = document.getElementById("barcode");
 if (barcode) drawBarcode(barcode, "WEITINGHUANG-NTU-HCI");

@@ -113,6 +113,18 @@ hr { border: 0; border-top: 2px solid var(--ink); margin: 0 0 18px; max-width: 5
 @keyframes drift { to { transform: translateX(calc(-1 * var(--w))); } }
 @keyframes shimmer { 50% { transform: translateX(2px); } }
 
+/* pixel fish behind the page */
+.fish-school { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.fish { position: absolute; left: 0; opacity: .75; animation: swim linear infinite; }
+.fish.left { animation-name: swim-left; }
+.fish.left svg { transform: scaleX(-1); }
+.fish svg { display: block; animation: bob 1.6s steps(2) infinite; }
+.fish.left svg { animation-name: bob-flip; }
+@keyframes swim { from { transform: translateX(-60px); } to { transform: translateX(calc(100vw + 60px)); } }
+@keyframes swim-left { from { transform: translateX(calc(100vw + 60px)); } to { transform: translateX(-60px); } }
+@keyframes bob { 50% { transform: translateY(3px); } }
+@keyframes bob-flip { from, to { transform: scaleX(-1); } 50% { transform: scaleX(-1) translateY(3px); } }
+
 /* sections */
 main { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
 section { padding: 64px 0 8px; }
@@ -207,6 +219,7 @@ footer { max-width: 1040px; margin: 0 auto; padding: 56px 16px 40px; font-size: 
 
 @media (prefers-reduced-motion: reduce) {
   .cloud-layer, .ripples { animation: none; }
+  .fish-school { display: none; }
   .btn, .icon { transition: none; }
   html { scroll-behavior: auto; }
 }
