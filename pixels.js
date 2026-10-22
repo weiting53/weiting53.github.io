@@ -281,7 +281,7 @@ function drawScene(svg) {
   rect(land, d + 119, GROUND - 3, 3, 1, PALETTE.k);
 }
 
-// Little pixel fish swimming behind the page, a nod to the fishing cat
+// Little pixel fish swimming behind the Projects section, a nod to the fishing cat
 const FISH_COLORS = [
   ["#e8665a", "#b94a40"], // coral
   ["#eaa75e", "#c07f3a"], // orange
@@ -291,7 +291,7 @@ const FISH_COLORS = [
   ["#7aa892", "#4f7d6b"], // green
 ];
 
-function drawFishSchool() {
+function drawFishSchool(home) {
   const school = document.createElement("div");
   school.className = "fish-school";
   school.setAttribute("aria-hidden", "true");
@@ -317,7 +317,7 @@ function drawFishSchool() {
     lane.appendChild(svg);
     school.appendChild(lane);
   }
-  document.body.prepend(school);
+  home.prepend(school);
 }
 
 // Deterministic barcode from the name
@@ -346,6 +346,7 @@ if (scene) {
     timer = setTimeout(() => drawScene(scene), 150);
   });
 }
-drawFishSchool();
+const pond = document.getElementById("projects");
+if (pond) drawFishSchool(pond);
 const barcode = document.getElementById("barcode");
 if (barcode) drawBarcode(barcode, "WEITINGHUANG-NTU-HCI");

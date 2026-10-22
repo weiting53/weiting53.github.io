@@ -15,7 +15,7 @@
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: clip; }
 
 body {
   margin: 0;
@@ -113,8 +113,10 @@ hr { border: 0; border-top: 2px solid var(--ink); margin: 0 0 18px; max-width: 5
 @keyframes drift { to { transform: translateX(calc(-1 * var(--w))); } }
 @keyframes shimmer { 50% { transform: translateX(2px); } }
 
-/* pixel fish behind the page */
-.fish-school { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+/* pixel fish behind the Projects section, spanning the full window width */
+#projects { position: relative; }
+#projects > :not(.fish-school) { position: relative; z-index: 1; }
+.fish-school { position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; overflow: hidden; pointer-events: none; }
 .fish { position: absolute; left: 0; opacity: .75; animation: swim linear infinite; }
 .fish.left { animation-name: swim-left; }
 .fish.left svg { transform: scaleX(-1); }
