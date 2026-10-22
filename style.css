@@ -103,7 +103,6 @@ hr { border: 0; border-top: 2px solid var(--ink); margin: 0 0 18px; max-width: 5
 .spec-k { margin: 0; padding: 2px 8px; font-size: 10px; font-weight: 700; letter-spacing: .08em; background: var(--strip); border-bottom: 1.5px solid var(--ink); }
 .spec-v { margin: 0; padding: 6px 8px; font-size: 12px; font-weight: 500; }
 .spec-sep { border-top: 1.5px dashed var(--ink); }
-.spec-note { font-size: 10.5px; color: var(--muted); }
 .corner { position: absolute; right: 10px; bottom: 10px; width: 16px; height: 16px; border-right: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
 
 .scene { display: block; width: calc(100% + 32px); margin: -28px -16px 0; height: 300px; position: relative; z-index: 1; }
