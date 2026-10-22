@@ -71,7 +71,7 @@ code { background: var(--strip); padding: .05em .35em; border: 1px solid var(--l
   box-shadow: 6px 6px 0 var(--ink);
 }
 .ref { font-size: 11px; letter-spacing: .08em; color: var(--muted); margin: 0 0 12px; }
-.hero-main { display: grid; grid-template-columns: 1fr 260px; gap: 40px; }
+.hero-main { display: grid; grid-template-columns: 1fr 300px; gap: 40px; }
 h1 {
   font-family: var(--display);
   font-weight: 700;
@@ -102,6 +102,8 @@ hr { border: 0; border-top: 2px solid var(--ink); margin: 0 0 18px; max-width: 5
 .spec { border: 1.5px solid var(--ink); }
 .spec-k { margin: 0; padding: 2px 8px; font-size: 10px; font-weight: 700; letter-spacing: .08em; background: var(--strip); border-bottom: 1.5px solid var(--ink); }
 .spec-v { margin: 0; padding: 6px 8px; font-size: 12px; font-weight: 500; }
+.spec-sep { border-top: 1.5px dashed var(--ink); }
+.spec-note { font-size: 10.5px; color: var(--muted); }
 .corner { position: absolute; right: 10px; bottom: 10px; width: 16px; height: 16px; border-right: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
 
 .scene { display: block; width: calc(100% + 32px); margin: -28px -16px 0; height: 300px; position: relative; z-index: 1; }
