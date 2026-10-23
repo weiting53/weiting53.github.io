@@ -113,6 +113,18 @@ hr { border: 0; border-top: 2px solid var(--ink); margin: 0 0 18px; max-width: 5
 @keyframes drift { to { transform: translateX(calc(-1 * var(--w))); } }
 @keyframes shimmer { 50% { transform: translateX(2px); } }
 
+/* fishing cat: wait, nibble, catch */
+.rod-wait { animation: rod-wait 9s step-end infinite; }
+.rod-catch { opacity: 0; animation: rod-catch 9s step-end infinite; }
+.bobber { animation: nibble 9s step-end infinite; }
+.hooked { animation: wriggle .3s steps(2) infinite; }
+@keyframes rod-wait { 0% { opacity: 1; } 78% { opacity: 0; } 96% { opacity: 1; } }
+@keyframes rod-catch { 0% { opacity: 0; } 78% { opacity: 1; } 96% { opacity: 0; } }
+@keyframes nibble { 0% { transform: none; } 64% { transform: translateY(1px); } 67% { transform: none; } 71% { transform: translateY(1px); } 74% { transform: none; } }
+@keyframes wriggle { 50% { transform: translateX(1px); } }
+.lure { animation: glow 1.4s steps(2) infinite; }
+@keyframes glow { 50% { fill: #fff6d2; } }
+
 /* pixel fish behind the Projects section, spanning the full window width */
 #projects { position: relative; }
 #projects > :not(.fish-school) { position: relative; z-index: 1; }
@@ -222,6 +234,8 @@ footer { max-width: 1040px; margin: 0 auto; padding: 56px 16px 40px; font-size: 
 @media (prefers-reduced-motion: reduce) {
   .cloud-layer, .ripples { animation: none; }
   .fish-school { display: none; }
+  .rod-wait, .bobber, .hooked, .lure { animation: none; }
+  .rod-catch { display: none; }
   .btn, .icon { transition: none; }
   html { scroll-behavior: auto; }
 }

@@ -131,6 +131,39 @@ const SPRITES = {
     "f...FFFFF...",
     "......f.....",
   ],
+  puffer: [
+    "......f.f...",
+    ".....FFFF...",
+    "..f.FFFFFF..",
+    "f..FFFFFwkFf",
+    "ffFFFFFFFFF.",
+    "f..FFhhhhFFf",
+    "..f.FhhhhF..",
+    ".....FFFF...",
+    "......f.f...",
+  ],
+  // anglerfish with a glowing lure (y)
+  lantern: [
+    "........fff..",
+    "........f..yy",
+    "...FFFFFf..yy",
+    "f.FFFFFFFF...",
+    "ffFFFFFwkFF..",
+    "fFFFFFFFFFFF.",
+    "ffFhhhhhFwFw.",
+    "f.FFhhhhFFFF.",
+    "...FFFFFFF...",
+  ],
+  // caught fish hanging from the line, head up
+  hooked: [
+    ".oo.",
+    "okoo",
+    "oppo",
+    "oppo",
+    ".oo.",
+    "oooo",
+    "o..o",
+  ],
   tea: [
     "........kk......",
     ".......kk.......",
@@ -275,9 +308,18 @@ function drawScene(svg) {
   rect(land, d + 118, GROUND + 1, 22, 1, PALETTE.N);
   rect(land, d + 136, GROUND + 2, 1, 4, PALETTE.N);
   drawSprite(land, SPRITES.sitcat, d + 124, GROUND - 9);
-  for (let i = 0; i < 12; i++) rect(land, d + 132 + i, GROUND - 6 - Math.floor(i * 0.9), 1, 1, PALETTE.N);
-  rect(land, d + 143, GROUND - 16, 1, WATER - GROUND + 17, "#5d7570");
-  rect(land, d + 142, WATER + 1, 3, 1, PALETTE.o);
+  // Two frames swapped by CSS: waiting with the line in the water, then the
+  // rod jerks up with a fish on the hook and a splash below
+  const wait = group(svg, "rod-wait");
+  for (let i = 0; i < 12; i++) rect(wait, d + 132 + i, GROUND - 6 - Math.floor(i * 0.9), 1, 1, PALETTE.N);
+  rect(wait, d + 143, GROUND - 16, 1, WATER - GROUND + 17, "#5d7570");
+  const bobber = group(wait, "bobber");
+  rect(bobber, d + 142, WATER + 1, 3, 1, PALETTE.o);
+  const caught = group(svg, "rod-catch");
+  for (let i = 0; i < 12; i++) rect(caught, d + 132 + Math.round(i * 0.9), GROUND - 6 - Math.round(i * 1.2), 1, 1, PALETTE.N);
+  rect(caught, d + 142, GROUND - 19, 1, 6, "#5d7570");
+  drawSprite(group(caught, "hooked"), SPRITES.hooked, d + 141, GROUND - 13);
+  [[-3, -2], [2, -3], [-1, -4], [4, -1]].forEach(([dx, dy]) => rect(caught, d + 143 + dx, WATER + dy, 1, 1, PALETTE.w));
   // little bucket
   rect(land, d + 119, GROUND - 3, 3, 3, PALETTE.s);
   rect(land, d + 119, GROUND - 3, 3, 1, PALETTE.k);
@@ -292,6 +334,8 @@ const FISH_COLORS = [
   ["#f3b6a8", "#d4847a", "#fbe0d8"], // pink
   ["#7aa892", "#4f7d6b", "#bcd9ca"], // green
 ];
+// Every 6th slot (yellow / green) becomes a pufferfish / lantern fish instead
+const FISH_KINDS = { 2: ["puffer", "#f2c66d", "#c99a3e", "#fae6b4"], 5: ["lantern", "#2f4f6b", "#1f3b36", "#46788c"] };
 
 function drawFishSchool(home) {
   const school = document.createElement("div");
@@ -299,22 +343,24 @@ function drawFishSchool(home) {
   school.setAttribute("aria-hidden", "true");
   const n = window.innerWidth < 700 ? 8 : 18;
   for (let i = 0; i < n; i++) {
-    const [body, fin, belly] = FISH_COLORS[i % FISH_COLORS.length];
+    const [kind, body, fin, belly] = FISH_KINDS[i % 6] || ["fish", ...FISH_COLORS[i % FISH_COLORS.length]];
+    const rows = SPRITES[kind], w = Math.max(...rows.map((r) => r.length)), h = rows.length;
     const lane = document.createElement("div");
     lane.className = "fish" + (i % 2 ? " left" : "");
     lane.style.top = `${8 + ((i * 37) % 86)}%`;
     lane.style.animationDuration = `${38 + ((i * 13) % 34)}s`;
     lane.style.animationDelay = `${-((i * 17) % 60)}s`;
     const svg = document.createElementNS(SVGNS, "svg");
-    svg.setAttribute("viewBox", "0 0 12 7");
+    svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
     svg.classList.add("px");
-    const s = i % 3 === 0 ? 3 : 2;
-    svg.style.width = `${12 * s}px`;
-    svg.style.height = `${7 * s}px`;
+    const s = kind === "fish" && i % 3 === 0 ? 3 : 2;
+    svg.style.width = `${w * s}px`;
+    svg.style.height = `${h * s}px`;
     svg.style.animationDelay = `${-(i % 5) * 0.4}s`;
-    SPRITES.fish.forEach((row, y) => [...row].forEach((ch, x) => {
-      const fill = { F: body, f: fin, h: belly, w: PALETTE.w, k: PALETTE.k }[ch];
+    rows.forEach((row, y) => [...row].forEach((ch, x) => {
+      const fill = { F: body, f: fin, h: belly }[ch] || PALETTE[ch];
       if (fill) rect(svg, x, y, 1, 1, fill);
+      if (ch === "y") svg.lastChild.classList.add("lure");
     }));
     lane.appendChild(svg);
     school.appendChild(lane);
